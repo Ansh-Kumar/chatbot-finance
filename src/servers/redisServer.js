@@ -25,13 +25,13 @@ app.post("/api/redis/user/createUser", (req, res) => {
 		redisClient.set(username, email).then((response) => {
 			if (response === "OK") {
 				res.json({
-					"successful": true
+					successful: true
 				});
 			}
 		});
 	} catch (error) {
 		res.json({
-			"successful": false
+			successful: false
 		});
 	}
 });
@@ -40,19 +40,20 @@ app.get("/api/redis/user/getUserEmail", (req, res) => {
 	const username = req.query.username;
 	// const username = "Ansh Kumar"
 	console.log("Received data: ", username);
-	
-	redisClient.get(username)
-	.then((response) => {
-		// console.log(response);
-		res.json({
-			"successful": true,
-			"email": response
+
+	redisClient
+		.get(username)
+		.then((response) => {
+			// console.log(response);
+			res.json({
+				successful: true,
+				email: response
+			});
 		})
-	})
-	.catch((error) => {
-		res.json({"successful": false});
-	})
-})
+		.catch((error) => {
+			res.json({ successful: false });
+		});
+});
 
 app.listen(port, () => {
 	console.log(`Server started on port ${port}`);
